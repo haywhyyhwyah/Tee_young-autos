@@ -1,24 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, Instagram, Facebook, Twitter, Calendar, ShieldCheck, Settings, Star } from 'lucide-react';
+import { Phone, Mail, Instagram, Facebook, Twitter, Calendar, ShieldCheck, Settings, Star, Menu, X } from 'lucide-react';
 
 const AutoDriveLanding = () => {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
     return (
         <div className="min-h-screen font-sans bg-black text-white">
             {/* 1. Hero Section */}
-            <header className="relative h-[600px] flex flex-col">
+            <header className="relative h-[600px] flex flex-col pt-24">
                 {/* Navigation */}
-                <nav className="absolute top-0 w-full z-10 flex justify-between items-center px-12 py-6">
-                    <div className="text-2xl font-bold italic" style={{display: 'flex', alignItems: 'center'}}>
-                        <img src="rm.png" alt="" style={{width: '100px'}}/>
-                        Teeyoung_<span className="text-red-600">Autos</span>
+                <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-white/10 px-4 md:px-12 py-3">
+                    <div className="max-w-6xl mx-auto flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-2xl font-bold italic">
+                            <img src="rm.png" alt="" className="w-20 md:w-24" />
+                            <span>Teeyoung_<span className="text-red-600">Autos</span></span>
+                        </div>
+
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                                className="p-2 rounded-md border border-white/20 bg-white/10 text-white hover:bg-white/20 transition"
+                                aria-label="Toggle navigation"
+                            >
+                                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                            </button>
+                        </div>
+
+                        <div className="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase text-gray-300">
+                            <Link to="/" className="hover:text-white">Home</Link>
+                            <Link to="/inventory" className="hover:text-white">Inventory</Link>
+                            <a href="#" className="hover:text-white">About Us</a>
+                            <a href="#" className="hover:text-white">Contact</a>
+                        </div>
                     </div>
-                    <div className="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase text-gray-300">
-                        <Link to="/" className="hover:text-white">Home</Link>
-                        <Link to="/inventory" className="hover:text-white">Inventory</Link>
-                        <a href="#" className="hover:text-white">About Us</a>
-                        <a href="#" className="hover:text-white">Contact</a>
-                    </div>
+
+                    {mobileMenuOpen && (
+                        <div className="mt-3 border border-white/10 rounded-xl bg-black/95 p-3 md:hidden">
+                            <div className="flex flex-col gap-2 text-sm font-semibold uppercase text-gray-200">
+                                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded hover:bg-white/10">Home</Link>
+                                <Link to="/inventory" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded hover:bg-white/10">Inventory</Link>
+                                <a href="#" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded hover:bg-white/10">About Us</a>
+                                <a href="#" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded hover:bg-white/10">Contact</a>
+                            </div>
+                        </div>
+                    )}
                 </nav>
 
                 {/* Hero Background & Text */}
@@ -28,7 +54,7 @@ const AutoDriveLanding = () => {
                 />
                 <div className="relative z-0 flex flex-col justify-center h-full px-12 max-w-2xl">
                     <h1 className="text-5xl font-bold leading-tight mb-4">
-                        FIND YOUR DRIVE HERE <br /> WITH US AT <span style={{color: 'red'}}>TEEYOUNG</span> AUTOS.
+                        FIND YOUR DRIVE HERE <br /> WITH US AT <span style={{ color: 'red' }}>TEEYOUNG</span> AUTOS.
                     </h1>
                     <p className="text-gray-300 mb-8 text-lg">
                         Explore a curated selection of new & pre-owned vehicles.
